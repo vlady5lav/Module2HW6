@@ -1,6 +1,6 @@
 ﻿namespace ModuleHW
 {
-    public class USAICECars : ICECar
+    public abstract class USAICECars : ICECar
     {
         public USAICECars()
         {

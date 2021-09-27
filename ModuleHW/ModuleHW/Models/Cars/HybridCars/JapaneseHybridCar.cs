@@ -1,6 +1,6 @@
 ﻿namespace ModuleHW
 {
-    public class JapaneseHybridCar : HybridCar
+    public abstract class JapaneseHybridCar : HybridCar
     {
         public JapaneseHybridCar()
         {

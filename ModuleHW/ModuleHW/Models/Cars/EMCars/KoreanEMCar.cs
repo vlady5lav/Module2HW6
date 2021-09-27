@@ -1,6 +1,6 @@
 ﻿namespace ModuleHW
 {
-    public class KoreanEMCar : EMCar
+    public abstract class KoreanEMCar : EMCar
     {
         public KoreanEMCar()
         {

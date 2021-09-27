@@ -1,9 +1,13 @@
-﻿namespace ModuleHW
+﻿using System;
+
+namespace ModuleHW
 {
     public static class TotalsExtension
     {
         public static int GetTotalCount(this Car[] cars)
         {
+            CarsCheck(cars);
+
             var totalCount = 0;
 
             foreach (var car in cars)
@@ -16,11 +20,13 @@
 
         public static double GetTotalPrice(this Car[] cars)
         {
+            CarsCheck(cars);
+
             double totalPrice = 0.0d;
 
             foreach (var car in cars)
             {
-                totalPrice += car.Price;
+                totalPrice += (double)car.Price;
             }
 
             return totalPrice;
@@ -28,11 +34,13 @@
 
         public static double GetTotalWeight(this Car[] cars)
         {
+            CarsCheck(cars);
+
             double totalWeight = 0.0d;
 
             foreach (var car in cars)
             {
-                totalWeight += car.Weight;
+                totalWeight += (double)car.Weight;
             }
 
             return totalWeight;
@@ -40,6 +48,8 @@
 
         public static int GetTotalUniquesCount(this Car[] cars)
         {
+            CarsCheck(cars);
+
             var duplesCount = 0;
 
             for (var i = 0; i < cars.Length; i++)
@@ -54,8 +64,7 @@
                 }
             }
 
-            var uniqueCount = cars.Length - duplesCount;
-            return uniqueCount;
+            return cars.Length - duplesCount;
         }
 
         /*
@@ -69,6 +78,8 @@
 
         public static Car[] GetTotalUniquesArray(this Car[] cars)
         {
+            CarsCheck(cars);
+
             var duples = new int[cars.Length];
             var duplesCount = 0;
 
@@ -97,8 +108,16 @@
                 }
             }
 
-            uniquesArray.SortByName();
-            return uniquesArray;
+            return uniquesArray.SortByName();
+        }
+
+        public static void CarsCheck(Car[] cars)
+        {
+            if (cars.Length == 0)
+            {
+                Console.WriteLine("There is nothing to calculate in TotalsExtension!");
+                return;
+            }
         }
     }
 }

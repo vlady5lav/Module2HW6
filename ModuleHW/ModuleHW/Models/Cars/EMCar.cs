@@ -9,10 +9,10 @@
             FuelType = CarFuelTypes.Electricity;
         }
 
-        public virtual CarBatteryTypes BatteryType { get; set; }
-        public virtual double BatteryCapacity { get; set; }
-        public virtual double BatteryConsumption { get; set; }
-        public virtual string ChargingTime { get; set; }
-        public virtual double PowerReserve { get; set; }
+        public override CarBatteryTypes BatteryType { get; init; }
+        public override double? BatteryCapacity { get; init; }
+        public override double? BatteryConsumption { get; init; }
+        public override double? PowerReserve { get; init; }
+        public override string ChargingTime { get; init; }
     }
 }

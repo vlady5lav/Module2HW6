@@ -8,6 +8,8 @@
             FuelConsumptionUnit = FuelConsumptionUnits.LP100KM;
         }
 
-        public virtual double FuelTankCapacity { get; set; }
+        public override double? FuelConsumption { get; set; }
+        public override double? FuelTankCapacity { get; init; }
+        public override FuelConsumptionUnits FuelConsumptionUnit { get; set; }
     }
 }

@@ -7,12 +7,16 @@
             AutomaticTransmission = true;
             EngineType = CarEngineTypes.Hybrid;
             FuelConsumptionUnit = FuelConsumptionUnits.LP100KM;
+            FuelType = CarFuelTypes.Hybrid;
         }
 
-        public virtual CarBatteryTypes BatteryType { get; set; }
-        public virtual double BatteryCapacity { get; set; }
-        public virtual double BatteryConsumption { get; set; }
-        public virtual double PowerReserve { get; set; }
-        public virtual double FuelTankCapacity { get; set; }
+        public override CarBatteryTypes BatteryType { get; init; }
+        public override double? BatteryCapacity { get; init; }
+        public override double? BatteryConsumption { get; init; }
+        public override double? FuelConsumption { get; set; }
+        public override double? FuelTankCapacity { get; init; }
+        public override double? PowerReserve { get; init; }
+        public override FuelConsumptionUnits FuelConsumptionUnit { get; set; }
+        public override string ChargingTime { get; init; }
     }
 }

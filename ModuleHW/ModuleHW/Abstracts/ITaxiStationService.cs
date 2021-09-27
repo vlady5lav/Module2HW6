@@ -2,16 +2,17 @@
 {
     public interface ITaxiStationService
     {
-        Car[] FilteredTaxiStationCars { get; }
-        Car[] SortedByFuelConsumptionTaxiStationCars { get; }
-        Car[] SortedByNameTaxiStationCars { get; }
-        Car[] SortedTaxiStationCars { get; }
+        Car[] FilteredCars { get; }
+        Car[] SortedByFuelConsumption { get; }
+        Car[] SortedByName { get; }
+        Car[] SortedCars { get; }
         Car[] TaxiStationCars { get; }
         Car[] TotalUniquesArray { get; }
         int TotalUniquesCount { get; }
 
-        void GetFilteredTaxiStationCars(CarBodyTypes carType);
-        void GetFilteredTaxiStationCars(string name);
-        void GetSortedCarTaxiStation(string sort);
+        void CarsCheck(Car[] cars);
+        Car[] GetFilteredCars(Car[] cars, CarBodyTypes carType);
+        Car[] GetFilteredCars(Car[] cars, string name);
+        Car[] GetSortedCars(Car[] cars, string sort);
     }
 }

@@ -13,49 +13,52 @@ namespace ModuleHW
         }
 
         public Car[] TaxiStationCars { get; private set; }
-        public Car[] FilteredTaxiStationCars { get; private set; }
-        public Car[] SortedTaxiStationCars { get; private set; }
-        public Car[] SortedByNameTaxiStationCars { get; private set; }
-        public Car[] SortedByFuelConsumptionTaxiStationCars { get; private set; }
+        public Car[] FilteredCars { get; private set; }
+        public Car[] SortedCars { get; private set; }
+        public Car[] SortedByName { get; private set; }
+        public Car[] SortedByFuelConsumption { get; private set; }
         public Car[] TotalUniquesArray { get; private set; }
         public int TotalUniquesCount { get; private set; }
 
-        public void GetFilteredTaxiStationCars(string name)
+        public void CarsCheck(Car[] cars)
         {
-            FilteredTaxiStationCars = new Car[TotalUniquesArray.Search(name).Length];
-            FilteredTaxiStationCars = TotalUniquesArray.Search(name);
+            if (cars.Length == 0)
+            {
+                Console.WriteLine("There is nothing to do in TaxiStationService!");
+                return;
+            }
         }
 
-        public void GetFilteredTaxiStationCars(CarBodyTypes carType)
+        public Car[] GetFilteredCars(Car[] cars, string name)
         {
-            FilteredTaxiStationCars = new Car[TotalUniquesArray.Search(carType).Length];
-            FilteredTaxiStationCars = TotalUniquesArray.Search(carType);
+            CarsCheck(cars);
+            return cars.SearchByName(name);
         }
 
-        public void GetSortedCarTaxiStation(string sort)
+        public Car[] GetFilteredCars(Car[] cars, CarBodyTypes bodyType)
         {
+            CarsCheck(cars);
+            return cars.SearchByBodyType(bodyType);
+        }
+
+        public Car[] GetSortedCars(Car[] cars, string sort)
+        {
+            CarsCheck(cars);
+
             switch (sort)
             {
+                case "BatteryConsumption":
+                    return cars.SearchByEngineType(CarEngineTypes.EM).SortByBatteryConsumption();
                 case "FuelConsumption":
-                    SortedByFuelConsumptionTaxiStationCars = (Car[])TotalUniquesArray.Search(CarEngineTypes.Hybrid, CarEngineTypes.ICE).Clone();
-                    SortedByFuelConsumptionTaxiStationCars.SortByFuelConsumption();
-                    return;
+                    return cars.SearchByEngineType(CarEngineTypes.Hybrid, CarEngineTypes.ICE).SortByFuelConsumption();
                 case "MaxSpeed":
-                    SortedTaxiStationCars = (Car[])TotalUniquesArray.Clone();
-                    SortedTaxiStationCars.SortByMaxSpeed();
-                    return;
+                    return cars.SortByMaxSpeed();
                 case "Name":
-                    SortedByNameTaxiStationCars = (Car[])TotalUniquesArray.Clone();
-                    SortedByNameTaxiStationCars.SortByName();
-                    return;
+                    return cars.SortByName();
                 case "Price":
-                    SortedTaxiStationCars = (Car[])TotalUniquesArray.Clone();
-                    SortedTaxiStationCars.SortByPrice();
-                    return;
+                    return cars.SortByPrice();
                 case "Weight":
-                    SortedTaxiStationCars = (Car[])TotalUniquesArray.Clone();
-                    SortedTaxiStationCars.SortByWeight();
-                    return;
+                    return cars.SortByWeight();
                 default:
                     throw new Exception("Error in sort switch!");
             }
@@ -63,19 +66,15 @@ namespace ModuleHW
 
         private void Init()
         {
-            if (_taxiStationProvider.TaxiStationCars == null || _taxiStationProvider.TaxiStationCars.Length == 0)
-            {
-                Console.WriteLine("There is no cars in TaxiStationProvider!");
-                return;
-            }
+            CarsCheck(_taxiStationProvider.TaxiStationCars);
 
-            TaxiStationCars = new Car[_taxiStationProvider.TaxiStationCars.Length];
-            _taxiStationProvider.TaxiStationCars.CopyTo(TaxiStationCars, 0);
+            TaxiStationCars = (Car[])_taxiStationProvider.TaxiStationCars.SortByName().Clone();
             TotalUniquesArray = TaxiStationCars.GetTotalUniquesArray();
-            TotalUniquesCount = TaxiStationCars.GetTotalUniquesCount();
-            GetFilteredTaxiStationCars(CarBodyTypes.Sedan);
-            GetSortedCarTaxiStation("Name");
-            GetSortedCarTaxiStation("FuelConsumption");
+            TotalUniquesCount = TotalUniquesArray.Length;
+            FilteredCars = (Car[])GetFilteredCars(TotalUniquesArray, CarBodyTypes.Sedan).Clone();
+            SortedByName = (Car[])GetSortedCars(TotalUniquesArray, "Name").Clone();
+            SortedByFuelConsumption = (Car[])GetSortedCars(TotalUniquesArray, "FuelConsumption").Clone();
+            SortedCars = (Car[])GetSortedCars(TotalUniquesArray, "BatteryConsumption").Clone();
         }
     }
 }

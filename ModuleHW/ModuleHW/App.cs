@@ -19,19 +19,22 @@ namespace ModuleHW
                 return;
             }
 
-            Console.WriteLine($"{Environment.NewLine}All cars in Taxi Station (Total price: {_taxiStationService.TaxiStationCars.GetTotalPrice()} UAH):{Environment.NewLine}");
+            Console.WriteLine($"{Environment.NewLine}List of all available cars in Taxi Station (Total price: {_taxiStationService.TaxiStationCars.GetTotalPrice()} UAH):{Environment.NewLine}");
             DisplayOutput(_taxiStationService.TaxiStationCars);
 
-            Console.WriteLine($"{Environment.NewLine}Filtered cars by type \"Sedan\":{Environment.NewLine}");
-            DisplayOutput(_taxiStationService.FilteredTaxiStationCars);
+            Console.WriteLine($"{Environment.NewLine}List of all car models filtered by type \"Sedan\":{Environment.NewLine}");
+            DisplayOutput(_taxiStationService.FilteredCars);
 
-            Console.WriteLine($"{Environment.NewLine}Sorted cars by Name:{Environment.NewLine}");
-            DisplayOutput(_taxiStationService.SortedByNameTaxiStationCars);
+            Console.WriteLine($"{Environment.NewLine}List of all car models sorted by \"Name\":{Environment.NewLine}");
+            DisplayOutput(_taxiStationService.SortedByName);
 
-            Console.WriteLine($"{Environment.NewLine}Sorted cars by Fuel Consumption:{Environment.NewLine}");
-            DisplayOutputFuelConsumption(_taxiStationService.SortedByFuelConsumptionTaxiStationCars);
+            Console.WriteLine($"{Environment.NewLine}List of all car models sorted by \"Fuel Consumption\"{Environment.NewLine}");
+            DisplayOutputFuelConsumption(_taxiStationService.SortedByFuelConsumption);
 
-            Console.WriteLine($"{Environment.NewLine}Unique cars (Total: {_taxiStationService.TotalUniquesCount} unique cars):{Environment.NewLine}");
+            Console.WriteLine($"{Environment.NewLine}List of all car models sorted by \"Battery Consumption\"{Environment.NewLine}");
+            DisplayOutputFuelConsumption(_taxiStationService.SortedCars);
+
+            Console.WriteLine($"{Environment.NewLine}List of all unique car models (Total: {_taxiStationService.TotalUniquesCount} models):{Environment.NewLine}");
             DisplayOutput(_taxiStationService.TotalUniquesArray);
 
             Console.WriteLine(string.Empty);
@@ -42,7 +45,7 @@ namespace ModuleHW
         {
             foreach (var car in cars)
             {
-                Console.WriteLine($"{car.Manufacturer} {car.Model}");
+                Console.WriteLine($"{car.Manufacturer} {car.Model} ({car.Year})");
             }
 
             Console.WriteLine($"{Environment.NewLine}=================================================================");
@@ -52,7 +55,15 @@ namespace ModuleHW
         {
             foreach (var car in cars)
             {
-                Console.WriteLine($"{car.Manufacturer} {car.Model}  --  {car.FuelConsumption} (l/100 km)");
+                if (car.FuelConsumption != null)
+                {
+                    Console.WriteLine($"{car.Manufacturer} {car.Model} ({car.Year}) --  {car.FuelConsumption} litres/100km (Tank Capacity = {car.FuelTankCapacity} litres)");
+                }
+
+                if (car.BatteryConsumption != null)
+                {
+                    Console.WriteLine($"{car.Manufacturer} {car.Model} ({car.Year}) --  {car.BatteryConsumption} WHrs/100km (Battery Capacity = {car.BatteryCapacity} WHrs)");
+                }
             }
 
             Console.WriteLine($"{Environment.NewLine}=================================================================");

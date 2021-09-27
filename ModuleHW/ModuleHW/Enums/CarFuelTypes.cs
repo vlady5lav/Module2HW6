@@ -7,5 +7,6 @@
         Petrol,
         Hydrogen,
         Electricity,
+        Hybrid,
     }
 }

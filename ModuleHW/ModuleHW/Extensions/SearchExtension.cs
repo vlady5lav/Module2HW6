@@ -4,8 +4,10 @@ namespace ModuleHW
 {
     public static class SearchExtension
     {
-        public static Car[] Search(this Car[] cars, string name)
+        public static Car[] SearchByName(this Car[] cars, string name)
         {
+            CarsCheck(cars);
+
             var indexes = new int[cars.Length];
             var cycle = 0;
             var lastindex = 0;
@@ -24,68 +26,10 @@ namespace ModuleHW
             return GetFiltered(cars, indexes, lastindex);
         }
 
-        public static Car[] Search(this Car[] cars, double weight)
+        public static Car[] SearchByBodyType(this Car[] cars, CarBodyTypes bodyType)
         {
-            var indexes = new int[cars.Length];
-            var cycle = 0;
-            var lastindex = 0;
+            CarsCheck(cars);
 
-            foreach (var car in cars)
-            {
-                if (car.Weight <= weight + 100 && car.Weight >= weight - 100)
-                {
-                    indexes[lastindex] = cycle;
-                    lastindex++;
-                }
-
-                cycle++;
-            }
-
-            return GetFiltered(cars, indexes, lastindex);
-        }
-
-        public static Car[] Search(Car[] cars, int minMaxSpeed, int maxMaxSpeed)
-        {
-            var indexes = new int[cars.Length];
-            var cycle = 0;
-            var lastindex = 0;
-
-            foreach (var car in cars)
-            {
-                if (car.MaxSpeed >= minMaxSpeed && car.MaxSpeed <= maxMaxSpeed)
-                {
-                    indexes[lastindex] = cycle;
-                    lastindex++;
-                }
-
-                cycle++;
-            }
-
-            return GetFiltered(cars, indexes, lastindex);
-        }
-
-        public static Car[] Search(Car[] cars, int maxSpeed)
-        {
-            var indexes = new int[cars.Length];
-            var cycle = 0;
-            var lastindex = 0;
-
-            foreach (var car in cars)
-            {
-                if (car.MaxSpeed >= maxSpeed)
-                {
-                    indexes[lastindex] = cycle;
-                    lastindex++;
-                }
-
-                cycle++;
-            }
-
-            return GetFiltered(cars, indexes, lastindex);
-        }
-
-        public static Car[] Search(this Car[] cars, CarBodyTypes bodyType)
-        {
             var indexes = new int[cars.Length];
             var cycle = 0;
             var lastindex = 0;
@@ -104,8 +48,10 @@ namespace ModuleHW
             return GetFiltered(cars, indexes, lastindex);
         }
 
-        public static Car[] Search(this Car[] cars, CarEngineTypes engineType1, CarEngineTypes engineType2)
+        public static Car[] SearchByEngineType(this Car[] cars, CarEngineTypes engineType1, CarEngineTypes engineType2)
         {
+            CarsCheck(cars);
+
             var indexes = new int[cars.Length];
             var cycle = 0;
             var lastindex = 0;
@@ -124,8 +70,32 @@ namespace ModuleHW
             return GetFiltered(cars, indexes, lastindex);
         }
 
+        public static Car[] SearchByEngineType(this Car[] cars, CarEngineTypes engineType)
+        {
+            CarsCheck(cars);
+
+            var indexes = new int[cars.Length];
+            var cycle = 0;
+            var lastindex = 0;
+
+            foreach (var car in cars)
+            {
+                if (car.EngineType == engineType)
+                {
+                    indexes[lastindex] = cycle;
+                    lastindex++;
+                }
+
+                cycle++;
+            }
+
+            return GetFiltered(cars, indexes, lastindex);
+        }
+
         public static Car SearchByType(this Car[] cars, Type type)
         {
+            CarsCheck(cars);
+
             var indexes = new int[cars.Length];
             var cycle = 0;
 
@@ -151,8 +121,16 @@ namespace ModuleHW
                 filteredCars[i] = cars[indexes[i]];
             }
 
-            filteredCars.SortByName();
-            return filteredCars;
+            return filteredCars.SortByName();
+        }
+
+        public static void CarsCheck(Car[] cars)
+        {
+            if (cars.Length == 0)
+            {
+                Console.WriteLine("There is nothing to search in SearchExtension!");
+                return;
+            }
         }
     }
 }

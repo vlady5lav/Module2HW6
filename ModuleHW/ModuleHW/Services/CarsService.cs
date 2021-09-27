@@ -1,4 +1,6 @@
-﻿namespace ModuleHW
+﻿using System;
+
+namespace ModuleHW
 {
     public class CarsService : ICarsService
     {
@@ -31,8 +33,19 @@
 
         public Car[] AllCars { get; private set; }
 
+        public void CarsCheck(Car[] cars)
+        {
+            if (cars.Length == 0)
+            {
+                Console.WriteLine("There is nothing to do in CarsService!");
+                return;
+            }
+        }
+
         private void ConvertFuelConsumption(Car[] cars)
         {
+            CarsCheck(cars);
+
             foreach (var car in cars)
             {
                 if (car is ICECar)
@@ -75,6 +88,8 @@
 
         private void ConvertCurrency(Car[] cars)
         {
+            CarsCheck(cars);
+
             foreach (var car in cars)
             {
                 var currencyData = GetCurrencyData(car.CurrencyUnit);
@@ -98,10 +113,12 @@
 
         private void ConvertSpeed(Car[] cars)
         {
+            CarsCheck(cars);
+
             foreach (var car in cars)
             {
                 var speedData = GetSpeedData(car.SpeedUnit);
-                car.MaxSpeed *= speedData.DefaultToCurrentRate;
+                car.MaxSpeed *= (int)Math.Round(speedData.DefaultToCurrentRate, 0);
                 car.SpeedUnit = _speedConfig.CurrentSpeedUnit;
             }
         }
@@ -121,6 +138,8 @@
 
         private void ConvertWeight(Car[] cars)
         {
+            CarsCheck(cars);
+
             foreach (var car in cars)
             {
                 var weightData = GetWeightData(car.WeightUnit);
@@ -144,8 +163,8 @@
 
         private void Init()
         {
-            AllCars = new Car[_carsProvider.AllCars.Length];
-            _carsProvider.AllCars.CopyTo(AllCars, 0);
+            AllCars = (Car[])_carsProvider.AllCars.Clone();
+            CarsCheck(AllCars);
             ConvertFuelConsumption(AllCars);
             ConvertCurrency(AllCars);
             ConvertSpeed(AllCars);

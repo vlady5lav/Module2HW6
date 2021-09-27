@@ -5,6 +5,7 @@ namespace ModuleHW
 {
     public static class SortExtension
     {
+        private static readonly BatteryConsumptionComparer _batteryConsumptionComparer;
         private static readonly FuelConsumptionComparer _fuelConsumptionComparer;
         private static readonly MaxSpeedComparer _maxSpeedComparer;
         private static readonly NameComparer _nameComparer;
@@ -13,6 +14,7 @@ namespace ModuleHW
 
         static SortExtension()
         {
+            _batteryConsumptionComparer = new BatteryConsumptionComparer();
             _fuelConsumptionComparer = new FuelConsumptionComparer();
             _maxSpeedComparer = new MaxSpeedComparer();
             _nameComparer = new NameComparer();
@@ -20,47 +22,60 @@ namespace ModuleHW
             _weightComparer = new WeightComparer();
         }
 
-        public static void SortByFuelConsumption(this Car[] cars)
+        public static Car[] SortByBatteryConsumption(this Car[] cars)
         {
-            SortCheck(cars);
+            CarsCheck(cars);
+            Array.Sort(cars, _batteryConsumptionComparer);
+            return cars;
+        }
+
+        public static Car[] SortByFuelConsumption(this Car[] cars)
+        {
+            CarsCheck(cars);
             Array.Sort(cars, _fuelConsumptionComparer);
+            return cars;
         }
 
-        public static void SortByMaxSpeed(this Car[] cars)
+        public static Car[] SortByMaxSpeed(this Car[] cars)
         {
-            SortCheck(cars);
+            CarsCheck(cars);
             Array.Sort(cars, _maxSpeedComparer);
+            return cars;
         }
 
-        public static void SortByName(this Car[] cars)
+        public static Car[] SortByName(this Car[] cars)
         {
-            SortCheck(cars);
+            CarsCheck(cars);
             Array.Sort(cars, _nameComparer);
+            return cars;
         }
 
-        public static void SortByPrice(this Car[] cars)
+        public static Car[] SortByPrice(this Car[] cars)
         {
-            SortCheck(cars);
+            CarsCheck(cars);
             Array.Sort(cars, _priceComparer);
+            return cars;
         }
 
-        public static void SortByWeight(this Car[] cars)
+        public static Car[] SortByWeight(this Car[] cars)
         {
-            SortCheck(cars);
+            CarsCheck(cars);
             Array.Sort(cars, _weightComparer);
+            return cars;
         }
 
-        public static void SortByChoose(this Car[] cars, IComparer comparer)
+        public static Car[] SortByChoose(this Car[] cars, IComparer comparer)
         {
-            SortCheck(cars);
+            CarsCheck(cars);
             Array.Sort(cars, comparer);
+            return cars;
         }
 
-        public static void SortCheck(Car[] cars)
+        public static void CarsCheck(Car[] cars)
         {
             if (cars.Length == 0)
             {
-                Console.WriteLine("There is nothing to sort!");
+                Console.WriteLine("There is nothing to sort in SortExtension!");
                 return;
             }
         }

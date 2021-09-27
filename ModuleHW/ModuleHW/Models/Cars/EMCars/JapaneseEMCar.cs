@@ -1,6 +1,6 @@
 ﻿namespace ModuleHW
 {
-    public class JapaneseEMCar : EMCar
+    public abstract class JapaneseEMCar : EMCar
     {
         public JapaneseEMCar()
         {

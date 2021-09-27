@@ -1,6 +1,6 @@
 ﻿namespace ModuleHW
 {
-    public class USAEMCar : EMCar
+    public abstract class USAEMCar : EMCar
     {
         public USAEMCar()
         {
