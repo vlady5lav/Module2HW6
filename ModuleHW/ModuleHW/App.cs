@@ -20,19 +20,18 @@ namespace ModuleHW
             }
 
             Console.WriteLine($"{Environment.NewLine}All cars in Taxi Station (Total price: {_taxiStationService.TaxiStationCars.GetTotalPrice()} UAH):{Environment.NewLine}");
-
             DisplayOutput(_taxiStationService.TaxiStationCars);
 
             Console.WriteLine($"{Environment.NewLine}Filtered cars by type \"Sedan\":{Environment.NewLine}");
-
             DisplayOutput(_taxiStationService.FilteredTaxiStationCars);
 
             Console.WriteLine($"{Environment.NewLine}Sorted cars by Name:{Environment.NewLine}");
+            DisplayOutput(_taxiStationService.SortedByNameTaxiStationCars);
 
-            DisplayOutput(_taxiStationService.SortedTaxiStationCars);
+            Console.WriteLine($"{Environment.NewLine}Sorted cars by Fuel Consumption:{Environment.NewLine}");
+            DisplayOutputFuelConsumption(_taxiStationService.SortedByFuelConsumptionTaxiStationCars);
 
             Console.WriteLine($"{Environment.NewLine}Unique cars (Total: {_taxiStationService.TotalUniquesCount} unique cars):{Environment.NewLine}");
-
             DisplayOutput(_taxiStationService.TotalUniquesArray);
 
             Console.WriteLine(string.Empty);
@@ -44,6 +43,16 @@ namespace ModuleHW
             foreach (var car in cars)
             {
                 Console.WriteLine($"{car.Manufacturer} {car.Model}");
+            }
+
+            Console.WriteLine($"{Environment.NewLine}=================================================================");
+        }
+
+        public void DisplayOutputFuelConsumption(Car[] cars)
+        {
+            foreach (var car in cars)
+            {
+                Console.WriteLine($"{car.Manufacturer} {car.Model}  --  {car.FuelConsumption} (l/100 km)");
             }
 
             Console.WriteLine($"{Environment.NewLine}=================================================================");

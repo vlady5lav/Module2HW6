@@ -3,6 +3,8 @@
     public interface ITaxiStationService
     {
         Car[] FilteredTaxiStationCars { get; }
+        Car[] SortedByFuelConsumptionTaxiStationCars { get; }
+        Car[] SortedByNameTaxiStationCars { get; }
         Car[] SortedTaxiStationCars { get; }
         Car[] TaxiStationCars { get; }
         Car[] TotalUniquesArray { get; }

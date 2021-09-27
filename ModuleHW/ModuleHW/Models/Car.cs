@@ -12,6 +12,8 @@
         public virtual CarBodyTypes BodyType { get; set; }
         public virtual CarEngineTypes EngineType { get; set; }
         public virtual CarFuelTypes FuelType { get; set; }
+        public virtual double FuelConsumption { get; set; }
+        public virtual FuelConsumptionUnits FuelConsumptionUnit { get; set; }
         public virtual CarSegments Segment { get; set; }
         public virtual int Year { get; set; }
         public virtual double Mileage { get; set; }

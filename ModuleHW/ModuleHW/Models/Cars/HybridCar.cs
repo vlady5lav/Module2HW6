@@ -13,8 +13,6 @@
         public virtual double BatteryCapacity { get; set; }
         public virtual double BatteryConsumption { get; set; }
         public virtual double PowerReserve { get; set; }
-        public virtual double FuelConsumption { get; set; }
         public virtual double FuelTankCapacity { get; set; }
-        public virtual FuelConsumptionUnits FuelConsumptionUnit { get; set; }
     }
 }

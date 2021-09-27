@@ -6,18 +6,8 @@ namespace ModuleHW
     {
         public int Compare(object x, object y)
         {
-            var car1 = x as ICECar;
-            var car2 = y as ICECar;
-
-            if (!(x is ICECar || x is HybridCar))
-            {
-                return -1;
-            }
-
-            if (!(y is ICECar || y is HybridCar))
-            {
-                return 1;
-            }
+            var car1 = x as Car;
+            var car2 = y as Car;
 
             if (car1.FuelConsumption > car2.FuelConsumption)
             {

@@ -104,6 +104,26 @@ namespace ModuleHW
             return GetFiltered(cars, indexes, lastindex);
         }
 
+        public static Car[] Search(this Car[] cars, CarEngineTypes engineType1, CarEngineTypes engineType2)
+        {
+            var indexes = new int[cars.Length];
+            var cycle = 0;
+            var lastindex = 0;
+
+            foreach (var car in cars)
+            {
+                if (car.EngineType == engineType1 || car.EngineType == engineType2)
+                {
+                    indexes[lastindex] = cycle;
+                    lastindex++;
+                }
+
+                cycle++;
+            }
+
+            return GetFiltered(cars, indexes, lastindex);
+        }
+
         public static Car SearchByType(this Car[] cars, Type type)
         {
             var indexes = new int[cars.Length];
