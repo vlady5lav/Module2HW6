@@ -2,7 +2,7 @@
 {
     public class VolumeData
     {
-        public VolumeUnits VolumeUnit { get; set; }
-        public double DefaultToCurrentRate { get; set; }
+        public VolumeUnits? VolumeUnit { get; set; }
+        public double? DefaultToCurrentRate { get; set; }
     }
 }

@@ -10,13 +10,12 @@
             FuelType = CarFuelTypes.Hybrid;
         }
 
-        public override CarBatteryTypes BatteryType { get; init; }
+        public override CarBatteryTypes? BatteryType { get; init; }
         public override double? BatteryCapacity { get; init; }
         public override double? BatteryConsumption { get; init; }
         public override double? FuelConsumption { get; set; }
         public override double? FuelTankCapacity { get; init; }
         public override double? PowerReserve { get; init; }
-        public override FuelConsumptionUnits FuelConsumptionUnit { get; set; }
-        public override string ChargingTime { get; init; }
+        public override FuelConsumptionUnits? FuelConsumptionUnit { get; set; }
     }
 }

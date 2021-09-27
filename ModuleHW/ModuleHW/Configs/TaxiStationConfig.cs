@@ -2,6 +2,6 @@
 {
     public class TaxiStationConfig
     {
-        public int TaxiStationSize { get; set; }
+        public int? TaxiStationSize { get; set; }
     }
 }

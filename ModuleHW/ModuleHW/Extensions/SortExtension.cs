@@ -73,7 +73,7 @@ namespace ModuleHW
 
         public static void CarsCheck(Car[] cars)
         {
-            if (cars.Length == 0)
+            if (cars == null)
             {
                 Console.WriteLine("There is nothing to sort in SortExtension!");
                 return;

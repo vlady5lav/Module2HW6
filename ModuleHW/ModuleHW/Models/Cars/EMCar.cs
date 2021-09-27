@@ -9,7 +9,7 @@
             FuelType = CarFuelTypes.Electricity;
         }
 
-        public override CarBatteryTypes BatteryType { get; init; }
+        public override CarBatteryTypes? BatteryType { get; init; }
         public override double? BatteryCapacity { get; init; }
         public override double? BatteryConsumption { get; init; }
         public override double? PowerReserve { get; init; }

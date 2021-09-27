@@ -22,7 +22,7 @@
                         new FuelConsumptionData
                         {
                             FuelConsumptionUnit = FuelConsumptionUnits.LP100KM,
-                            Rate = 1.0,
+                            Rate = null,
                         },
                         new FuelConsumptionData
                         {
@@ -58,6 +58,25 @@
                     CurrentCurrencyUnit = CurrencyUnits.UAH,
                 },
 
+                MileageConfig = new MileageConfig()
+                {
+                    MileageData = new MileageData[]
+                    {
+                        new MileageData
+                        {
+                            MileageUnit = MileageUnits.KM,
+                            DefaultToCurrentRate = 1.0,
+                        },
+                        new MileageData
+                        {
+                            MileageUnit = MileageUnits.MILE,
+                            DefaultToCurrentRate = 1.61,
+                        },
+                    },
+
+                    CurrentMileageUnit = MileageUnits.KM,
+                },
+
                 SpeedConfig = new SpeedConfig()
                 {
                     SpeedData = new SpeedData[]
@@ -79,7 +98,7 @@
 
                 TaxiStationConfig = new TaxiStationConfig()
                 {
-                    TaxiStationSize = 50,
+                    TaxiStationSize = 29,
                 },
 
                 VolumeConfig = new VolumeConfig()

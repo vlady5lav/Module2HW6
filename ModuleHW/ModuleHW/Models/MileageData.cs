@@ -1,8 +1,8 @@
 ﻿namespace ModuleHW
 {
-    public class SpeedData
+    public class MileageData
     {
-        public SpeedUnits? SpeedUnit { get; set; }
+        public MileageUnits? MileageUnit { get; set; }
         public double? DefaultToCurrentRate { get; set; }
     }
 }

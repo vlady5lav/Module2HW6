@@ -2,7 +2,7 @@
 {
     public class FuelConsumptionData
     {
-        public FuelConsumptionUnits FuelConsumptionUnit { get; set; }
-        public double Rate { get; set; }
+        public FuelConsumptionUnits? FuelConsumptionUnit { get; set; }
+        public double? Rate { get; set; }
     }
 }

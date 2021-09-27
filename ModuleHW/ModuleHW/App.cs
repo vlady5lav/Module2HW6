@@ -13,7 +13,7 @@ namespace ModuleHW
 
         public void Start()
         {
-            if (_taxiStationService.TaxiStationCars == null || _taxiStationService.TaxiStationCars.Length == 0)
+            if (_taxiStationService.TaxiStationCars == null)
             {
                 Console.WriteLine("There is no cars in TaxiStationService!");
                 return;
@@ -45,10 +45,10 @@ namespace ModuleHW
         {
             foreach (var car in cars)
             {
-                Console.WriteLine($"{car.Manufacturer} {car.Model} ({car.Year})");
+                Console.WriteLine(car.ToString());
             }
 
-            Console.WriteLine($"{Environment.NewLine}=================================================================");
+            Console.WriteLine($"=================================================================");
         }
 
         public void DisplayOutputFuelConsumption(Car[] cars)
@@ -57,12 +57,12 @@ namespace ModuleHW
             {
                 if (car.FuelConsumption != null)
                 {
-                    Console.WriteLine($"{car.Manufacturer} {car.Model} ({car.Year}) --  {car.FuelConsumption} litres/100km (Tank Capacity = {car.FuelTankCapacity} litres)");
+                    Console.WriteLine($"{car.Manufacturer} {car.Model} ({car.Year})  --  {car.FuelConsumption:0.00} litres/100km (Tank Capacity = {car.FuelTankCapacity:0.00} litres)");
                 }
-
-                if (car.BatteryConsumption != null)
+                else if (car.BatteryConsumption != null)
                 {
-                    Console.WriteLine($"{car.Manufacturer} {car.Model} ({car.Year}) --  {car.BatteryConsumption} WHrs/100km (Battery Capacity = {car.BatteryCapacity} WHrs)");
+                    Console.WriteLine($"{car.Manufacturer} {car.Model} ({car.Year})  --  {car.BatteryConsumption:0.00} WHrs/100km " +
+                        $"(Battery Capacity = {car.BatteryCapacity:0.00} WHrs, Charging Time = {car.ChargingTime})");
                 }
             }
 

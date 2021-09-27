@@ -10,6 +10,8 @@ namespace ModuleHW
         private readonly CurrencyData[] _currencyData;
         private readonly FuelConsumptionConfig _fuelConsumptionConfig;
         private readonly FuelConsumptionData[] _fuelConsumptionData;
+        private readonly MileageConfig _mileageConfig;
+        private readonly MileageData[] _mileageData;
         private readonly SpeedConfig _speedConfig;
         private readonly SpeedData[] _speedData;
         private readonly WeightConfig _weightConfig;
@@ -23,6 +25,8 @@ namespace ModuleHW
             _currencyData = _configService.CurrencyData;
             _fuelConsumptionConfig = _configService.FuelConsumptionConfig;
             _fuelConsumptionData = _configService.FuelConsumptionData;
+            _mileageConfig = _configService.MileageConfig;
+            _mileageData = _configService.MileageData;
             _speedConfig = _configService.SpeedConfig;
             _speedData = _configService.SpeedData;
             _weightConfig = _configService.WeightConfig;
@@ -35,7 +39,7 @@ namespace ModuleHW
 
         public void CarsCheck(Car[] cars)
         {
-            if (cars.Length == 0)
+            if (cars == null)
             {
                 Console.WriteLine("There is nothing to do in CarsService!");
                 return;
@@ -48,26 +52,16 @@ namespace ModuleHW
 
             foreach (var car in cars)
             {
-                if (car is ICECar)
+                if (car is ICECar || car is HybridCar)
                 {
-                    var iceCar = car as ICECar;
-
-                    if (iceCar.FuelConsumptionUnit == FuelConsumptionUnits.MPG)
+                    if (car.FuelConsumptionUnit == FuelConsumptionUnits.MPG)
                     {
-                        var fuelConsumptionData = GetFuelConsumptionData(iceCar.FuelConsumptionUnit);
-                        iceCar.FuelConsumption = fuelConsumptionData.Rate / iceCar.FuelConsumption;
-                        iceCar.FuelConsumptionUnit = _fuelConsumptionConfig.CurrentFuelConsumptionUnit;
-                    }
-                }
-                else if (car is HybridCar)
-                {
-                    var hybridCar = car as HybridCar;
-
-                    if (hybridCar.FuelConsumptionUnit == FuelConsumptionUnits.MPG)
-                    {
-                        var fuelConsumptionData = GetFuelConsumptionData(hybridCar.FuelConsumptionUnit);
-                        hybridCar.FuelConsumption = fuelConsumptionData.Rate / hybridCar.FuelConsumption;
-                        hybridCar.FuelConsumptionUnit = _fuelConsumptionConfig.CurrentFuelConsumptionUnit;
+                        var fuelConsumptionData = GetFuelConsumptionData(car.FuelConsumptionUnit.Value);
+                        if (fuelConsumptionData.Rate != null)
+                        {
+                            car.FuelConsumption = fuelConsumptionData.Rate / car.FuelConsumption;
+                            car.FuelConsumptionUnit = _fuelConsumptionConfig.CurrentFuelConsumptionUnit;
+                        }
                     }
                 }
             }
@@ -92,7 +86,7 @@ namespace ModuleHW
 
             foreach (var car in cars)
             {
-                var currencyData = GetCurrencyData(car.CurrencyUnit);
+                var currencyData = GetCurrencyData(car.CurrencyUnit.Value);
                 car.Price *= currencyData.DefaultToCurrentRate;
                 car.CurrencyUnit = _currencyConfig.CurrentCurrencyUnit;
             }
@@ -111,14 +105,39 @@ namespace ModuleHW
             return null;
         }
 
+        private void ConvertMileage(Car[] cars)
+        {
+            CarsCheck(cars);
+
+            foreach (var car in cars)
+            {
+                var mileageData = GetMileageData(car.MileageUnit.Value);
+                car.Mileage *= Math.Round((double)mileageData.DefaultToCurrentRate, 0);
+                car.MileageUnit = _mileageConfig.CurrentMileageUnit;
+            }
+        }
+
+        private MileageData GetMileageData(MileageUnits mileageUnit)
+        {
+            foreach (var mileageData in _mileageData)
+            {
+                if (mileageData.MileageUnit == mileageUnit)
+                {
+                    return mileageData;
+                }
+            }
+
+            return null;
+        }
+
         private void ConvertSpeed(Car[] cars)
         {
             CarsCheck(cars);
 
             foreach (var car in cars)
             {
-                var speedData = GetSpeedData(car.SpeedUnit);
-                car.MaxSpeed *= (int)Math.Round(speedData.DefaultToCurrentRate, 0);
+                var speedData = GetSpeedData(car.SpeedUnit.Value);
+                car.MaxSpeed *= (int)Math.Round((double)speedData.DefaultToCurrentRate, 0);
                 car.SpeedUnit = _speedConfig.CurrentSpeedUnit;
             }
         }
@@ -142,7 +161,7 @@ namespace ModuleHW
 
             foreach (var car in cars)
             {
-                var weightData = GetWeightData(car.WeightUnit);
+                var weightData = GetWeightData(car.WeightUnit.Value);
                 car.Weight *= weightData.DefaultToCurrentRate;
                 car.WeightUnit = _weightConfig.CurrentWeightUnit;
             }
@@ -167,6 +186,7 @@ namespace ModuleHW
             CarsCheck(AllCars);
             ConvertFuelConsumption(AllCars);
             ConvertCurrency(AllCars);
+            ConvertMileage(AllCars);
             ConvertSpeed(AllCars);
             ConvertWeight(AllCars);
         }
